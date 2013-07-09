@@ -1,0 +1,28 @@
+@www.adobe.com
+GET / HTTP/1.0
+Host: www.adobe.com
+-
+@www.google.com
+GET / HTTP/1.0
+-
+@acesso.uol.com.br
+GET /login.html HTTP/1.0
+Host: acesso.uol.com.br
+-
+@pro.gigaom.com
+GET / HTTP/1.0
+Host: pro.gigaom.com
+-
+@www.adobe.com
+GET / HTTP/1.0
+Host: www.adobe.com
+-
+@4chan.org
+GET / HTTP/1.0
+Host: 4chan.org
+-
+@www.wired.com
+GET / HTTP/1.0
+Host: www.wired.com
+Connection: close
+-
