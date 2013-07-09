@@ -1,3 +1,58 @@
-HTTP Performance Meter
+HTTP Performance Meter - Rodrigo Albani de Campos (camposr@gmail.com)
 
-A simple but effective way to test the performance of HTTP requests
+A simple HTTP performance meter.
+
+httpmeter reads a file and performs http requests based on the contents of this file.
+
+To compile httpmeter you need the SSL header files and libraries (libssl-dev package).
+
+The configuration file is as follows:
+
+@<hostname>
+<multiple line request data>
+-
+
+A single dash ends the request data for a given http request, for example:
+
+@www.wired.com
+GET / HTTP/1.0
+Host: www.wired.com
+User-Agent: httpmeter
+Accept-Language: en-US,en;q=0.8
+Connection: close
+-
+
+Multiple requests can be described in the same file, in this case the tests will be performed serially in the
+same order.
+
+Output is as follows:
+
+<request number>;<date time>;<hostname>;<time to connect>;<time to first byte>;<time to complete>;<total bytes read>;<http status>
+
+Example:
+
+1;2013-07-09 13:24:35 -0700;www.adobe.com;0.646291;0.298515;1.001212;83066;200
+2;2013-07-09 13:24:37 -0700;www.google.com;0.175095;0.204023;0.204028;992;302
+3;2013-07-09 13:24:37 -0700;acesso.uol.com.br;0.048146;0.014997;0.015038;2015;200
+4;2013-07-09 13:24:37 -0700;pro.gigaom.com;0.316054;0.919837;0.919846;602;302
+5;2013-07-09 13:24:39 -0700;www.adobe.com;0.179552;0.186440;0.724679;83066;200
+6;2013-07-09 13:24:41 -0700;4chan.org;0.167044;0.662038;0.662045;1847;301
+7;2013-07-09 13:24:42 -0700;www.wired.com;0.059671;0.017874;0.018334;163;301
+
+
+httpmeter supports the following command line options:
+
+HTTPMETER version 0.6 (Tethys)
+Usage:
+	-f	Name of the file containing HTTP requests
+	-s	Use SSL for socket communications (HTTPS)
+	-v	Verbose level, use multiple times to increase verbosity
+	-V	Display version number
+	-h	Display usage information
+	-t	Timeout in seconds (default: 300 seconds)
+	-p	Show progress
+	-o	Write results to file instead of standard output
+	-D	Show time as seconds since epoch
+	-4	Do not use IPv6 even when the AAAA record exists
+
+

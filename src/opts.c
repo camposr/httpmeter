@@ -25,7 +25,7 @@ void printHelp(void)
 		{0}
 	};
 
-	printf("HTTPMELT version %s\nUsage:\n",version);
+	printf("HTTPMETER version %s\nUsage:\n",version);
 
 	for (i = 0; entries[i].option !=0;i++)
 	{

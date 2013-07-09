@@ -1,4 +1,18 @@
 #include "httpmelt.h"
+/*
+	## Copyright 2013, Rodrigo Albani de Campos (camposr@gmail.com)
+	## All rights reserved.
+	##
+	## This program is free software, you can redistribute it and/or
+	## modify it under the terms of the "Artistic License 2.0".
+	##
+	## A copy of the "Artistic License 2.0" can be obtained at
+	## http://www.opensource.org/licenses/artistic-license-2.0
+	##
+	## This program is distributed in the hope that it will be useful,
+	## but WITHOUT ANY WARRANTY; without even the implied warranty of
+	## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*/
 
 short int verbose = 0;
 const char *version = "0.6 (Tethys)";
@@ -47,7 +61,7 @@ int main(int argc, char **argv)
 				reqFileName = strdup(optarg);
 				break;
 			case 'V':
-				printf("HTTPMELT version %s\n",version);
+				printf("HTTPMETER version %s\n",version);
 				exit(EXIT_SUCCESS);
 				break;
 			case 't':
