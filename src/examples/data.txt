@@ -5,11 +5,11 @@ Host: www.adobe.com
 @www.google.com
 GET / HTTP/1.0
 -
-@acesso.uol.com.br
+@acesso.uol.com.br,acesso UOL
 GET /login.html HTTP/1.0
 Host: acesso.uol.com.br
 -
-@pro.gigaom.com
+@pro.gigaom.com,GigaOM Pro
 GET / HTTP/1.0
 Host: pro.gigaom.com
 -

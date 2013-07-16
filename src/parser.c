@@ -80,18 +80,40 @@ httpReq *parseFile(char *fileName)
 void addRequest(char *hostName, char *requestData, httpReq *head)
 {
 	httpReq *newRequest;
+	char *cp, *name;
 	static httpReq *lastRequest = NULL;
 	extern short int verbose;
+
+	/* check if theres a "friendly" name after the hostname */
+	cp = strchr(hostName, ',');
+	if (cp == NULL)
+	{
+		name = NULL;
+	}
+	else
+	{
+		*cp = '\0';
+		name = cp+1;
+	}
 
 
 	if (lastRequest == NULL)
 	{
 		if (verbose > 1)
 			fprintf(stderr, "%s: No last request found so this is the head\n", __FUNCTION__);
+		if (name == NULL)
+		{
+			head->name = NULL;
+		}
+		else
+		{
+			head->name = calloc(strlen(name)+1, sizeof(char));
+			strncpy(head->name, name, strlen(name));
+		}
 		head->host = calloc(strlen(hostName)+1, sizeof(char));
-		strcpy(head->host, hostName);
+		strncpy(head->host, hostName, strlen(hostName));
 		head->data = calloc(strlen(requestData)+1, sizeof(char));
-		strcpy(head->data, requestData);
+		strncpy(head->data, requestData, strlen(requestData));
 		head->nextReq = NULL;
 		lastRequest = head;
 	}
@@ -101,10 +123,19 @@ void addRequest(char *hostName, char *requestData, httpReq *head)
 			fprintf(stderr, "%s: Last request found so this is NOT the head\n", __FUNCTION__);
 		newRequest = malloc(sizeof(httpReq));
 		lastRequest->nextReq = newRequest;
+		if (name == NULL)
+		{
+			newRequest->name = NULL;
+		}
+		else
+		{
+			newRequest->name = calloc(strlen(name)+1, sizeof(char));
+			strncpy(newRequest->name, name, strlen(name));
+		}
 		newRequest->host = calloc(strlen(hostName)+1, sizeof(char));
-		strcpy(newRequest->host, hostName);
+		strncpy(newRequest->host, hostName, strlen(hostName));
 		newRequest->data = calloc(strlen(requestData)+1, sizeof(char));
-		strcpy(newRequest->data, requestData);
+		strncpy(newRequest->data, requestData, strlen(requestData));
 		newRequest->nextReq = NULL;
 		lastRequest = newRequest;
 	}
@@ -200,8 +231,8 @@ void printResults(httpReq *head, char *outputFileName)
 
 	while(req != NULL)
 	{
-		fprintf(fp, "%d;%s;%s;%f;%f;%f;%ld;%s\n",++i,
-			req->dateTime,req->host,req->connectTime,req->firstByteTime,req->totalTime,req->totalBytes, req->status);
+		fprintf(fp, "%d;%s;%s;%s;%f;%f;%f;%ld;%s\n",++i,
+			req->dateTime,req->host, req->name ? req->name : req->host, req->connectTime,req->firstByteTime,req->totalTime,req->totalBytes, req->status);
 		req = getRequest(head);
 	}
 	fclose(fp);

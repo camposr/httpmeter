@@ -22,9 +22,14 @@ int main(int argc, char **argv)
 {
 	/* use SSL for socket communications */
 	bool useSSL = false;
+	/* print progress during tests */
 	bool showProgress = false;
+	/* do not use ipv6 even when there's a AAAA RR for the hostname */
 	bool onlyIpv4 = false;
+	/* print time in seconds since epoch instead of a human readable format */
 	bool unixTime = false;
+	/* use the friendly name for output if available */
+	bool showName = false;
 	/* generic variable for return code and loop control */
 	int rc;
 	/* http request file name */
@@ -43,10 +48,13 @@ int main(int argc, char **argv)
 
 
 	/* parse command line options */
-	while ((rc = getopt(argc,argv, "shvVf:t:o:p4dD")) != -1)
+	while ((rc = getopt(argc,argv, "shvVFf:t:o:p4dD")) != -1)
 	{
 		switch(rc)
 		{
+			case 'F':
+				showName = true;
+				break;
 			case 'v':
 				verbose++;
 				break;

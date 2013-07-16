@@ -21,9 +21,11 @@
 
 typedef struct httpReq
 {		
-	char *host;		/* hostname of ip address */
+	char *host;		/* hostname or ip address */
+	char *ipAddr;	/* the resolved IP address */
 	char *data;		/* http request data */
 	char *status;	/* http response code */
+	char *name;		/* a optional friendly to identify the tested host/uri */
 	double connectTime;	/* time to connect */
 	double firstByteTime;	/* time to receive first byte */
 	double totalTime;		/* total connection and transfer time */
